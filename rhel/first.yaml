@@ -1,0 +1,7 @@
+---
+- name: My First Playbook
+  hosts: myservers
+
+  tasks:
+    - name: test connectivity
+      ping:

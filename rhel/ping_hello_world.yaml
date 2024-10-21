@@ -1,0 +1,10 @@
+---
+- name: Hello World and Ping
+  hosts: myservers
+
+  tasks:
+  - name: Test ping
+    ping:
+
+  - name: Test hello world
+    debug: msg="ECHO HELLO WORLD AFTER PING"

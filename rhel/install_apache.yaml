@@ -1,0 +1,14 @@
+---
+- name: install apache server
+  hosts: localhost
+
+  tasks:
+    - name: installing apache server with dnf
+      dnf: 
+        name: httpd
+        state: present
+    - name: starting apache server
+      systemd: 
+        name: httpd
+        state: started
+        enabled: yes

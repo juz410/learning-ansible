@@ -1,0 +1,8 @@
+---
+- name: My Hello World
+  hosts: localhost
+
+  tasks:
+    - name: Test Hello world
+      debug: msg="$(curl www.google.com)"
+
