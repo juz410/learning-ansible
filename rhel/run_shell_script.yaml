@@ -1,0 +1,28 @@
+---
+- name: Running shell scripts
+  hosts: myservers
+
+  tasks:
+    - name: creating new shell script
+      file:
+        path: /testing_shell.sh
+        state: touch 
+        mode: 0770
+   
+    - name: inserting shell script
+      blockinfile:
+        path: /testing_shell.sh
+        marker: ""
+        block: |
+          #!/bin/bash
+          hostname=$(hostname)
+          mkdir /anshell_fold
+          touch /anshell_fold/test_shell.txt
+          echo "THIS IS CREATED BY SHELL ANSIBLE" > /anshell_fold/test_shell.txt
+          echo ${hostname} >> /anshell_fold/test_shell.txt
+
+    - name: run the testing_shell.sh
+      shell: /testing_shell.sh
+
+
+       

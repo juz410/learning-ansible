@@ -1,10 +1,10 @@
 ---
 - name: Hello World and Ping
-  hosts: myservers
+  hosts: localhost
 
   tasks:
   - name: Test ping
-    ping:
+    ansible.builtin.ping:
 
   - name: Test hello world
     debug: msg="ECHO HELLO WORLD AFTER PING"

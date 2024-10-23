@@ -1,0 +1,10 @@
+---
+- name: Playing with copy module
+  hosts: localhost
+
+  tasks:
+    - name: Copy file with owner and permissions
+      copy:
+        src: /root/rhce/some.cfg
+        dest: /root/copy_some.cfg
+        owner: kokfeeng2001

@@ -1,0 +1,10 @@
+---
+- name: Chaging file permission using ansible
+  hosts: localhost
+
+  tasks:
+    - name: changing file permission testing
+      ansible.builtin.file:
+        path: /root/rhce/some.cfg
+        mode: 0777
+

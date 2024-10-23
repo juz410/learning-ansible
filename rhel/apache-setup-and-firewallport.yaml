@@ -1,0 +1,61 @@
+---
+- name: Setup apache and firewall port 80
+  hosts: all
+
+  tasks:
+    - name: Install Python 3 on Red Hat/CentOS
+      dnf:
+        name: python3
+        state: present
+
+    - name: Install python3 firewall
+      dnf:
+        name: python3-firewall
+        state: present
+    - name: Install firewalld
+      dnf:
+        name: firewalld
+        state: present
+
+    - name: Enable firewalld
+      systemd:
+        name: firewalld
+        state: started
+        enabled: true
+
+    - name: Check if the httpd is install
+      package_facts:
+        manager: rpm
+
+    - name: install httpd service
+      dnf:
+        name: httpd
+        state: present
+      when: "'httpd' not in ansible_facts.packages" 
+    
+    - name: enable httpd service
+      systemd:
+        name: httpd
+        enabled: true
+        state: started
+
+    - name: open port 80 for http
+      firewalld:
+        zone: public
+        service: http
+        permanent: true
+        state: enabled
+    
+    - name: open port 82 for testing
+      firewalld:
+        zone: public
+        port: 82/tcp
+        permanent: true
+        state: enabled
+
+    - name: reload firewall
+      systemd:
+        name: firewalld
+        state: reloaded
+
+

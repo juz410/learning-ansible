@@ -1,0 +1,18 @@
+---
+- name: testing handlers
+  hosts: localhost
+
+  tasks:
+    - name:
+      blockinfile:
+        path: /var/www/html/index.html
+        block: Testing Handler "{{number}}"
+        marker: ""
+      notify: Restart HTTPD
+
+  handlers:
+    - name: Restart HTTPD
+      systemd:
+        name: httpd
+        state: restarted
+

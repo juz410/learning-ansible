@@ -1,0 +1,12 @@
+---
+- name: Creating user with ansible
+  hosts: localhost
+
+  tasks:
+    - name: Creating user
+      user:
+        name: ansible-user-test01
+        password: "{{ password | password_hash('sha512') }}"
+        password_expire_max: 90
+        uid: 8765
+

@@ -1,0 +1,11 @@
+---
+- name: Testing package facts
+  hosts: localhost
+
+  tasks:
+    - name: Gather package facts
+      package_facts:
+        manager: auto
+    - name: print the package facts
+      debug: 
+        msg: "{{ansible_facts.packages}}"

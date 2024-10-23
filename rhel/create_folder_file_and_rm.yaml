@@ -1,0 +1,42 @@
+---
+- name: Testing create folder and file
+  hosts: localhost
+
+  tasks:
+    - name: Testing create folder with file module
+      file:
+        path: /root/rhce/folder_created_by_ansible/layer2
+        state: directory
+        mode: 2777
+    - name: Testing creating file with file module
+      file:
+        path: /root/rhce/folder_created_by_ansible/layer2/file_created_by_ansible
+        state: touch
+        mode: 0666
+        owner: kokfeeng2001
+        group: kokfeeng2001
+    - name: Check file status
+      stat:
+        path: /root/rhce/folder_created_by_ansible/layer2/file_created_by_ansible
+      register: file_details
+
+    - name: printing out file details
+      debug:
+        msg: "{{file_details}}"
+
+    - name: delete files
+      file:
+        path: /root/rhce/folder_created_by_ansible/layer2/file_created_by_ansible
+        state: absent
+      
+    - name: check file after delete
+      stat:
+        path: /root/rhce/folder_created_by_ansible/layer2/file_created_by_ansible
+      register: file_details
+
+    - name: printing out file details after delete
+      debug:
+        msg: "AFTER DELETING FILES {{file_details}}" 
+
+    
+

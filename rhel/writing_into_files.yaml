@@ -1,0 +1,19 @@
+---
+- name: Testing to write into a file
+  hosts: localhost
+
+  tasks:
+    - name: Creating a file
+      file:
+        path: /root/rhce/testing_write_file
+        state: touch
+
+    - name: writing into the file
+      blockinfile:
+        path: /root/rhce/testing_write_file
+        block: 
+          THIS IS THE FIRST LINE 
+          THIS IS THE SECOND LINE
+          THIS IS THE THIRD LINE
+
+

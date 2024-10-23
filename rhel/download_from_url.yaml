@@ -1,0 +1,17 @@
+---
+- name: Downloading from wed
+  hosts: localhost
+
+  tasks:
+    - name: Downloading using get-url
+      get_url:
+        dest: /redhat.jpg
+        url: https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.exclusive-networks.com%2Fbg%2Fvendors%2Fred-hat%2F&psig=AOvVaw04hKUr1KWs-Vp7c_41fXD5&ust=1729662315553000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCIjS_7CkoYkDFQAAAAAdAAAAABAE
+
+    - name: Checking if it is there
+      shell: ls -l / | grep redhat
+      register: checking_output
+
+    - name: displaying output
+      debug:
+        msg: "{{checking_output}}"

@@ -1,0 +1,78 @@
+---
+- name: Mounting with ansible
+  hosts: localhost
+
+  tasks:
+    - name: creating part 1 with gpt
+      parted:
+        device: /dev/vdb
+        label: gpt
+        number: 1
+        state: present
+        fs_type: xfs
+        part_end: 256MiB
+      
+
+    - name: creating part 2
+      parted:
+        device: /dev/vdb
+        label: gpt
+        number: 2
+        fs_type: linux-swap
+        state: present
+        part_start: 257MiB
+        part_end: 512MiB
+      
+    - name: checking partition 
+      parted:
+        device: /dev/vdb
+        state: info
+      register: fs_info
+
+    - name: Echo out the info
+      debug:
+        msg: "{{fs_info}}"
+
+    - name: Make part 1 into xfs file system
+      filesystem:
+        fstype: xfs
+        dev: /dev/vdb1
+
+    - name: Make part 2 into swap disk
+      shell: | 
+        swapoff -a
+        mkswap /dev/vdb2
+        swapon /dev/vdb2
+    
+    - name: Checking if it is already included
+      shell: cat /etc/fstab
+      register: "fstab_info"
+
+    - name: Making swap space to start on boot
+      blockinfile: 
+        path: /etc/fstab
+        block: /dev/vdb2 swap swap defaults 0 0
+        marker: ""
+      when: "'/dev/vdb2' not in fstab_info.stdout"
+    
+    - name: test debug fstab_info
+      debug:
+        msg: "{{fstab_info}}"
+
+    - name: creating new dir
+      file:
+        path: /mnt/ansible-mount1
+        state: directory
+   
+    - name: mounting part 1 to /mnt/ansible-mount1
+      mount:
+        src: /dev/vdb1
+        path: /mnt/ansible-mount1
+        state: present
+        fstype: xfs
+        boot: true
+
+
+    
+
+

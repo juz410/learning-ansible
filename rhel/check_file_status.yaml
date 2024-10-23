@@ -1,0 +1,14 @@
+---
+- name: checking file status
+  hosts: localhost
+
+  tasks:
+    - name: checking with stat
+      ansible.builtin.stat:
+        path: /root/copy_some.cfg
+      register: output
+
+    - name: Pringting out the output
+      debug:
+        msg: "{{output}}"
+
