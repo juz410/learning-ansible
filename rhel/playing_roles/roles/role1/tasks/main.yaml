@@ -1,0 +1,9 @@
+# roles/role1/tasks/main.yml
+---
+- name: Include role2 in role1
+  include_role:
+    name: role2
+
+- name: Role 1 debug
+  debug:
+    msg: "TESTING ROLE 1"

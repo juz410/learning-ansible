@@ -1,0 +1,6 @@
+# roles/role2/tasks/main.yml
+---
+- name: Task from role2
+  debug:
+    msg: "Hello from role2!"
+

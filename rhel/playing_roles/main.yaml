@@ -1,0 +1,10 @@
+# main.yaml
+---
+- name: Example playbook that calls multiple roles
+  hosts: localhost
+  vars:
+    my_var: "Hello from main.yaml"
+  roles:
+    - role1
+    - role2
+

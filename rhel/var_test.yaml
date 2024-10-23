@@ -1,0 +1,14 @@
+---
+- name: Testing var with loop
+  hosts: localhost
+  vars:
+    users: [{name: "Tan123", password: "abcd"},{name: "User02", password: "userpasw"}]
+      
+
+  tasks:
+    - name: Printing out
+      debug:
+        msg: "This is user name: {{ user.name }} This is user password: {{user.password}}"
+      loop: "{{users}}"
+      loop_control:
+        loop_var: user

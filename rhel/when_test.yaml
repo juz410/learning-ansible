@@ -1,0 +1,14 @@
+---
+- name: playing with when
+  hosts: localhost
+    
+  tasks:
+    - name: debug if it is redhat
+      debug:
+        msg: "THIS IS RED HAT"
+      when: "ansible_os_family == 'RedHat'"
+    
+    - name: debug if it is window
+      debug:
+        msg: "THIS IS WINDOW"
+      when: "ansible_os_family == 'Window'"

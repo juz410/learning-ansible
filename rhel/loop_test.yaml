@@ -1,0 +1,10 @@
+---
+- name: Playing loop in ansible
+  hosts: localhost
+
+  tasks:
+    - name: Looping a list and print it out
+      loop: "{{my_items}}"
+      debug:
+        msg: "{{item}}"
+      when: "item != 'b'"
