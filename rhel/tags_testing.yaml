@@ -1,0 +1,16 @@
+---
+- name: playing with tag
+  hosts: localhost
+  tasks:
+    - name: install httpd
+      dnf:
+        name: httpd
+        state: present
+      tags: i-http
+
+    - name: starting httpd
+      systemd:
+        name: httpd
+        state: started
+      tags: s-http
+
